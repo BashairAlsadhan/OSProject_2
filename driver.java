@@ -23,7 +23,14 @@ public static void main(String[] args) {
                     processInfo();
                     break;
                 case 2:
-                    // add code 
+                //if (Q1 == null &&  Q2 == null) {
+                 // System.out.println("No processes entered yet!");
+                //} else {
+    
+                //}
+
+                  //reportInformation(); نادوها 
+                  
                     break;
                 case 3:
                     System.out.println("Exiting the program...");
