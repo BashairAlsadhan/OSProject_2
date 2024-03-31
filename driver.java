@@ -86,8 +86,24 @@ public static void main(String[] args) {
         scheduleProcesses();
 
 
+
+
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Report.txt"))) {
         // Write scheduling order to file and display in console
+
+
+        
+        System.out.print("Scheduling order of processes: ");
+        writer.write("Scheduling order of processes: ");
+        for (ProcessControlBlock process : schedulingOrder) {
+            System.out.print(process.processID + " | ");
+            writer.write(process.processID + " | ");
+        }
+        System.out.println();
+        writer.newLine();
+
+
         for (ProcessControlBlock process : schedulingOrder) {
             System.out.println("Process ID: " + process.processID);
             System.out.println("Priority: " + process.priority);
