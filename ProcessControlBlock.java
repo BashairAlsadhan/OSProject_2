@@ -1,13 +1,13 @@
 class ProcessControlBlock {
-    private String processID;
-    private int priority;
-    private double arrivalTime;
-    private double cpuBurst;
-    private double startTime;
-    private double terminationTime;
-    private double turnaroundTime;
-    private double waitingTime;
-    private double responseTime;
+    public String processID;
+    public int priority;
+    public double arrivalTime;
+    public double cpuBurst;
+    public double startTime;
+    public double terminationTime;
+    public double turnaroundTime;
+    public double waitingTime;
+    public double responseTime;
 
     public static int processCount = 1;
 
