@@ -1,10 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class driver {
 
-    private static ArrayList<ProcessControlBlock> Q1 = new ArrayList<>();
-    private static ArrayList<ProcessControlBlock> Q2 = new ArrayList<>();
+    public static ArrayList<ProcessControlBlock> Q1 = new ArrayList<>();
+    public static ArrayList<ProcessControlBlock> Q2 = new ArrayList<>();
+    public static List<ProcessControlBlock> schedulingOrder = new ArrayList<>();
     public static Scanner input = new Scanner(System.in);
 
 public static void main(String[] args) {
@@ -23,13 +28,9 @@ public static void main(String[] args) {
                     processInfo();
                     break;
                 case 2:
-                //if (Q1 == null &&  Q2 == null) {
-                 // System.out.println("No processes entered yet!");
-                //} else {
-    
-                //}
+                
 
-                  //reportInformation(); نادوها 
+                  reportInformation(); 
                   
                     break;
                 case 3:
@@ -71,6 +72,101 @@ public static void main(String[] args) {
 
 
 
+
+    private static void reportInformation(){
+
+        if (Q1.isEmpty() && Q2.isEmpty()) {
+            System.out.println("No processes to schedule.");
+            return;
+        }
+
+
+
+        
+        scheduleProcesses();
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Report.txt"))) {
+        // Write scheduling order to file and display in console
+        for (ProcessControlBlock process : schedulingOrder) {
+            System.out.println("Process ID: " + process.processID);
+            System.out.println("Priority: " + process.priority);
+            System.out.println("Arrival time: " + process.arrivalTime);
+            System.out.println("CPU burst time: " + process.cpuBurst);
+            System.out.println("Start time: " + process.startTime);
+            System.out.println("Termination time: " + process.terminationTime);
+            System.out.println("Turnaround time: " + process.turnaroundTime);
+            System.out.println("Waiting time: " + process.waitingTime);
+            System.out.println("Response time: " + process.responseTime);
+            System.out.println();
+
+
+            writer.write("Process ID: " + process.processID);
+            writer.newLine();
+            writer.write("Priority: " + process.priority);
+            writer.newLine();
+            writer.write("Arrival time: " + process.arrivalTime);
+            writer.newLine();
+            writer.write("CPU burst time: " + process.cpuBurst);
+            writer.newLine();
+            writer.write("Start time: " + process.startTime);
+            writer.newLine();
+            writer.write("Termination time: " + process.terminationTime);
+            writer.newLine();
+            writer.write("Turnaround time: " + process.turnaroundTime);
+            writer.newLine();
+            writer.write("Waiting time: " + process.waitingTime);
+            writer.newLine();
+            writer.write("Response time: " + process.responseTime);
+            writer.newLine();
+            writer.newLine();
+        }
+
+
+
+        
+        // Calculate and display average turnaround time, waiting time, and response time
+        int totalTurnaroundTime = 0;
+        int totalWaitingTime = 0;
+        int totalResponseTime = 0;
+        for (ProcessControlBlock process : schedulingOrder) {
+            totalTurnaroundTime += process.turnaroundTime;
+            totalWaitingTime += process.waitingTime;
+            totalResponseTime += process.responseTime;
+        }
+        double avgTurnaroundTime = (double) totalTurnaroundTime / schedulingOrder.size();
+        double avgWaitingTime = (double) totalWaitingTime / schedulingOrder.size();
+        double avgResponseTime = (double) totalResponseTime / schedulingOrder.size();
+
+        System.out.println("Average Turnaround Time: " + avgTurnaroundTime);
+        System.out.println("Average Waiting Time: " + avgWaitingTime);
+        System.out.println("Average Response Time: " + avgResponseTime);
+
+        writer.write("Average Turnaround Time: " + avgTurnaroundTime);
+        writer.newLine();
+        writer.write("Average Waiting Time: " + avgWaitingTime);
+        writer.newLine();
+        writer.write("Average Response Time: " + avgResponseTime);
+        writer.newLine();
+
+
+
+
+    }// end witing 
+    catch (IOException e) {
+        System.out.println("An error occurred while writing to the file: " + e.getMessage());
+    }
+
+    }
+
+
+
+
+
+    private static void scheduleProcesses(){
+
+
+    }
 
 
 
