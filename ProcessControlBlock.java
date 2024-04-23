@@ -1,21 +1,22 @@
 class ProcessControlBlock {
     public String processID;
     public int priority;
-    public double arrivalTime;
-    public double cpuBurst;
-    public double startTime;
-    public double terminationTime;
-    public double turnaroundTime;
-    public double waitingTime;
-    public double responseTime;
-
+    public int arrivalTime;
+    public int cpuBurst;
+    public int remainingBurst;
+    public int startTime;
+    public int terminationTime;
+    public int turnaroundTime;
+    public int waitingTime;
+    public int responseTime;
     public static int processCount = 1;
 
-    public ProcessControlBlock( int priority, double arrivalTime, double cpuBurst) {
+    public ProcessControlBlock( int priority, int arrivalTime, int cpuBurst) {
         this.processID = "P" + (ProcessControlBlock.processCount++);
         this.priority = priority;
         this.arrivalTime = arrivalTime;
         this.cpuBurst = cpuBurst;
+        this.remainingBurst=cpuBurst;
         this.startTime = -1; // Initialize to -1 indicating not yet started
         this.terminationTime = -1; // Initialize to -1 indicating not yet terminated
     }
@@ -23,18 +24,21 @@ class ProcessControlBlock {
    
   
     // Calculate turnaround time
-    public void calculateTurnaroundTime() {
-        this.turnaroundTime = this.terminationTime - this.arrivalTime;
+    public double calculateTurnaroundTime() {
+        turnaroundTime= this.terminationTime - this.arrivalTime;
+        return turnaroundTime;
     }
 
     // Calculate waiting time
-    public void calculateWaitingTime() {
-        this.waitingTime = this.turnaroundTime - this.cpuBurst;
+    public double calculateWaitingTime() {
+        waitingTime=this.turnaroundTime - this.cpuBurst;
+        return waitingTime;
     }
 
     // Calculate response time
-    public void calculateResponseTime() {
-        this.responseTime = this.startTime - this.arrivalTime;
+    public double calculateResponseTime() {
+         responseTime=this.startTime - this.arrivalTime;
+         return responseTime;
     }
 
     
