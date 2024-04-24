@@ -160,6 +160,7 @@ public class driver {
             System.out.println("No processes to schedule.");
             return;
         }
+        schedulingOrder.clear();
         int timer=0;
         int quantum=3;
         sortProcesses(Q1); //so the queues are sorted based on arrival time (easier to check)
@@ -183,7 +184,7 @@ public class driver {
                     currentP.terminationTime=timer;
                     doneProcesses.add(currentP);}
                 else{
-                    Q1.add(currentP);}
+                    Q1.add(0,currentP);}
             }
 
             else if((!Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
