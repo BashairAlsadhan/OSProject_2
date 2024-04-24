@@ -59,7 +59,7 @@ public class driver {
             int cpuBurst = input.nextInt();
 
             ProcessControlBlock pcb = new ProcessControlBlock(priority, arrivalTime, cpuBurst);
-            System.out.println(pcb.toString());
+            //System.out.println(pcb.toString());
 
             // Add the process to the appropriate queue
             if (priority == 1)
@@ -67,8 +67,6 @@ public class driver {
             else
                 Q2.add(pcb);
         }
-        System.out.println("q1 size= "+Q1.size());
-        System.out.println("q2 size= "+Q2.size());
 
     }
 
@@ -167,7 +165,7 @@ public class driver {
         sortProcesses(Q1); //so the queues are sorted based on arrival time (easier to check)
         sortProcesses(Q2);
         ProcessControlBlock currentP;
-        ProcessControlBlock sjfCurrent= new ProcessControlBlock( 0, -1, 0); //Just initilizing so i can check if i have a preempted process or not
+        ProcessControlBlock sjfCurrent= new ProcessControlBlock( 0, -1, -1); //Just initilizing so i can check if i have a preempted process or not
 
         while(!Q1.isEmpty() || !Q2.isEmpty() || sjfCurrent.remainingBurst!=0) { //while i have processes
             if(!Q1.isEmpty() && Q1.get(0).arrivalTime<=timer){ //round robin schedueler
@@ -188,11 +186,11 @@ public class driver {
                     Q1.add(currentP);}
             }
 
-            else if((!Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0){  //check if i have q2 processes
+            else if((!Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
                 int j=0;
-                if (sjfCurrent.startTime<0){ // check if i have preempted
+                if (sjfCurrent.remainingBurst<=0){ // check if i have preempted
                 if(Q2.get(0).arrivalTime<=timer){ //sjf schedueler (find shortest)
-                    ProcessControlBlock shortestP=Q1.get(0);
+                    ProcessControlBlock shortestP=Q2.get(0);
                     for (int i = 1; i < Q2.size() && Q2.get(i).arrivalTime<=timer ; i++) { 
                         if (Q2.get(i).cpuBurst < shortestP.cpuBurst) { 
                             shortestP = Q2.get(i); 

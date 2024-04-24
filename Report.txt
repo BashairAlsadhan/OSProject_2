@@ -1,0 +1,44 @@
+Scheduling order of processes: P2 | P3 | P1 | P4 | 
+Process ID: P2
+Priority: 2
+Arrival time: 0
+CPU burst time: 1
+Start time: 0
+Termination time: 1
+Turnaround time: 1
+Waiting time: 0
+Response time: 0
+
+Process ID: P3
+Priority: 2
+Arrival time: 1
+CPU burst time: 1
+Start time: 1
+Termination time: 2
+Turnaround time: 1
+Waiting time: 0
+Response time: 0
+
+Process ID: P1
+Priority: 2
+Arrival time: 0
+CPU burst time: 2
+Start time: 2
+Termination time: 4
+Turnaround time: 4
+Waiting time: 2
+Response time: 2
+
+Process ID: P4
+Priority: 2
+Arrival time: 1
+CPU burst time: 5
+Start time: 4
+Termination time: 9
+Turnaround time: 8
+Waiting time: 3
+Response time: 3
+
+Average Turnaround Time: 3.5
+Average Waiting Time: 1.25
+Average Response Time: 1.25
