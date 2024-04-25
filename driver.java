@@ -149,7 +149,7 @@ public class driver {
             writer.newLine();
             writer.write("Average Response Time: " + avgResponseTime);
             writer.newLine();
-            
+
         } // end witing
         catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage());
@@ -191,7 +191,7 @@ public class driver {
                     findPlace(currentP);}
                 }
 
-            else if((Q1.isEmpty() && !Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
+            else if((!Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
                 int j=0;
                 if (sjfCurrent.remainingBurst<=0){ // check if i have preempted
                 if(Q2.get(0).arrivalTime<=timer){ //sjf schedueler (find shortest)
