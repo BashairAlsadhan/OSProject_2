@@ -12,6 +12,8 @@ public class driver {
     public static ArrayList<ProcessControlBlock> Q2 = new ArrayList<>();
     public static List<ProcessControlBlock> schedulingOrder = new ArrayList<>();
     public static List<ProcessControlBlock> doneProcesses = new ArrayList<>();
+    public static int timer=0;
+
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -147,7 +149,7 @@ public class driver {
             writer.newLine();
             writer.write("Average Response Time: " + avgResponseTime);
             writer.newLine();
-
+            
         } // end witing
         catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage());
@@ -161,12 +163,12 @@ public class driver {
             return;
         }
         schedulingOrder.clear();
-        int timer=0;
+        timer=0;
         int quantum=3;
         sortProcesses(Q1); //so the queues are sorted based on arrival time (easier to check)
         sortProcesses(Q2);
         ProcessControlBlock currentP;
-        ProcessControlBlock sjfCurrent= new ProcessControlBlock( 0, -1, -1); //Just initilizing so i can check if i have a preempted process or not
+        ProcessControlBlock sjfCurrent= new ProcessControlBlock( 0, -1, 0); //Just initilizing so i can check if i have a preempted process or not
 
         while(!Q1.isEmpty() || !Q2.isEmpty() || sjfCurrent.remainingBurst!=0) { //while i have processes
             if(!Q1.isEmpty() && Q1.get(0).arrivalTime<=timer){ //round robin schedueler
@@ -182,12 +184,14 @@ public class driver {
 
                 if(currentP.remainingBurst==0){ //check if process finished or put it back in queue
                     currentP.terminationTime=timer;
-                    doneProcesses.add(currentP);}
-                else{
-                    Q1.add(0,currentP);}
-            }
+                    doneProcesses.add(currentP);
+                }
 
-            else if((!Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
+                else{
+                    findPlace(currentP);}
+                }
+
+            else if((Q1.isEmpty() && !Q2.isEmpty() && Q2.get(0).arrivalTime<=timer) || sjfCurrent.remainingBurst>0 ){  //check if i have q2 processes
                 int j=0;
                 if (sjfCurrent.remainingBurst<=0){ // check if i have preempted
                 if(Q2.get(0).arrivalTime<=timer){ //sjf schedueler (find shortest)
@@ -248,4 +252,22 @@ public class driver {
         });
     }
 
+    public static void findPlace(ProcessControlBlock p){
+    boolean added = false;
+
+    for (int i = 0; i < Q1.size(); i++) {
+        if (Q1.get(i).arrivalTime > timer) {
+            Q1.add(i, p);
+            added = true;
+            break;
+        }
+    }
+
+    if (!added) {
+        Q1.add(p);
+    }
+    return;
+}
+
 }// end class
+
