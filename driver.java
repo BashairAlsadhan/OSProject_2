@@ -32,7 +32,7 @@ public class driver {
                     processInfo();
                     break;
                 case 2:
-                    scheduleProcesses();
+                    //scheduleProcesses();
 
                     reportInformation();
 
